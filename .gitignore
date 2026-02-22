@@ -1,0 +1,11 @@
+# Django
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+
+# Media uploads
+media/
+
+# Collected static
+staticfiles/
