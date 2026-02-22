@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+
+<h2>Contact Us</h2>
+
+<div class="row g-4">
+  <div class="col-md-7">
+    <form method="post" class="card p-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-dark">Send</button>
+    </form>
+  </div>
+
+  <div class="col-md-5">
+    <div class="card p-3">
+      <h5>Contact Information</h5>
+      <p>Email: nooraljouranie@gmail.com</p>
+      <p>Phone: +972 59 756 0309</p>
+      <p>Address: Gaza - Palestine</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

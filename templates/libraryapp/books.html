@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load library_filters %}
+{% block title %}Books{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">All Books</h2>
+
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <input type="text" name="q" class="form-control" placeholder="Search by title or author" value="{{ q }}">
+  </div>
+
+  <div class="col-md-3">
+    <select name="c" class="form-select">
+      <option value="">All Categories</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == c %}selected{% endif %}>
+          {{ cat.label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <select name="sort" class="form-select">
+      <option value="new" {% if sort == "new" %}selected{% endif %}>Newest</option>
+      <option value="old" {% if sort == "old" %}selected{% endif %}>Oldest</option>
+      <option value="rating" {% if sort == "rating" %}selected{% endif %}>Highest Rated</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-dark w-100">Filter</button>
+  </div>
+</form>
+
+<div class="row g-4">
+{% for book in page_obj %}
+  <div class="col-md-4">
+    <div class="card h-100 p-2">
+
+      {% if book.cover %}
+        <img src="{{ book.cover.url }}" class="card-img-top">
+      {% endif %}
+
+      <div class="card-body">
+        <h5>{{ book.title }}</h5>
+        <p>{{ book.author.display_name }}</p>
+        <p>{{ book.category.label }}</p>
+
+        <p>
+          Rating:
+          ⭐ {{ book.average_rating }} / 5
+        </p>
+
+        <p>
+          Status:
+          {{ book|book_status }}
+        </p>
+
+        <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-dark mt-2">
+          View Details
+        </a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}

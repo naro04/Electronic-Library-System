@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Authors{% endblock %}
+{% block content %}
+
+<h2>Authors</h2>
+
+<div class="row g-3">
+  {% for a in authors %}
+    <div class="col-md-4">
+      <div class="card p-3 h-100">
+        <div class="d-flex gap-3">
+          {% if a.photo %}
+            <img src="{{ a.photo.url }}" style="width:70px;height:70px;border-radius:50%;object-fit:cover;">
+          {% else %}
+            <div style="width:70px;height:70px;border-radius:50%;background:#eee;"></div>
+          {% endif %}
+          <div>
+            <h5 class="mb-1">{{ a.display_name }}</h5>
+            <div class="text-muted">Books: {{ a.total }}</div>
+          </div>
+        </div>
+
+        <p class="mt-2 text-muted">{{ a.bio|default:"No biography available."|truncatewords:20 }}</p>
+
+        <a class="btn btn-dark mt-auto" href="{% url 'author_detail' a.id %}">View Author</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

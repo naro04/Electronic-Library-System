@@ -1,0 +1,88 @@
+:root{
+  --pink-50:#fff1f5;
+  --pink-100:#ffe4ec;
+  --pink-200:#fecdd9;
+  --pink-300:#fda4c0;
+  --pink-400:#fb719f;
+  --pink-500:#f43f86;
+  --pink-600:#e11d73;
+  --pink-700:#be185d;
+
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --border:rgba(17,24,39,.08);
+  --shadow:0 10px 28px rgba(244,63,134,.10);
+  --radius:18px;
+}
+
+*{ box-sizing:border-box; }
+body{
+  background:
+    radial-gradient(900px 500px at 10% 0%, rgba(244,63,134,.12), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(253,164,192,.18), transparent 60%),
+    linear-gradient(180deg, var(--pink-50), #ffffff 40%);
+  color:var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+a{ color:var(--pink-700); text-decoration:none; }
+a:hover{ color:var(--pink-600); }
+
+.navbar{
+  background: rgba(255,255,255,.72) !important;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+.navbar .navbar-brand{ font-weight:800; color:var(--ink) !important; }
+.navbar .nav-link{ color: rgba(31,41,55,.82) !important; font-weight:600; border-radius: 12px; }
+.navbar .nav-link:hover{ background: rgba(244,63,134,.10); color: var(--pink-700) !important; }
+
+.card{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-img-top{
+  height: 220px;
+  object-fit: cover;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+
+.btn{ border-radius: 14px; font-weight: 700; }
+.btn-dark{
+  background: linear-gradient(135deg, var(--pink-600), var(--pink-500)) !important;
+  border: none !important;
+}
+.btn-dark:hover{
+  background: linear-gradient(135deg, var(--pink-700), var(--pink-600)) !important;
+}
+.btn-success{
+  background: linear-gradient(135deg, #10b981, #34d399) !important;
+  border: none !important;
+}
+.btn-outline-dark{
+  border: 2px solid rgba(244,63,134,.35) !important;
+  color: var(--pink-700) !important;
+}
+.btn-outline-dark:hover{
+  background: rgba(244,63,134,.12) !important;
+}
+
+.badge{ border-radius: 999px; padding: .45rem .7rem; font-weight: 800; }
+
+.form-control, .form-select{
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: .6rem .85rem;
+}
+.form-control:focus, .form-select:focus{
+  border-color: rgba(244,63,134,.45);
+  box-shadow: 0 0 0 .25rem rgba(244,63,134,.14);
+}
+
+footer{
+  border-top: 1px solid var(--border);
+  color: rgba(31,41,55,.7) !important;
+}

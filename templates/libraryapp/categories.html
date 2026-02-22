@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+
+<h2>Categories</h2>
+
+<div class="row g-3">
+  {% for c in categories %}
+    <div class="col-md-4">
+      <div class="card p-3">
+        <div class="d-flex align-items-center gap-3">
+          <div>
+            {% if c.icon_name %}
+              <i class="{{ c.icon_name }} fs-2"></i>
+            {% else %}
+              <i class="bi bi-bookmarks fs-2"></i>
+            {% endif %}
+          </div>
+          <div>
+            <h5 class="mb-0">{{ c.label }}</h5>
+            <div class="text-muted">Books: {{ c.total }}</div>
+          </div>
+        </div>
+
+        <a class="btn btn-dark mt-3" href="{% url 'books' %}?c={{ c.id }}">View Books</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+<h2>My Profile</h2>
+
+<div class="card p-3">
+  <div class="d-flex gap-3 align-items-center">
+    {% if card.avatar %}
+      <img src="{{ card.avatar.url }}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">
+    {% else %}
+      <div style="width:90px;height:90px;border-radius:50%;background:#eee;"></div>
+    {% endif %}
+
+    <div>
+      <h5 class="mb-1">{{ user.first_name|default:user.username }}</h5>
+      <div>{{ user.email }}</div>
+      <div>{{ card.phone }}</div>
+      <div class="text-muted">Registration date: {{ user.date_joined|date:"Y-m-d" }}</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <p>Number of currently borrowed books: <b>{{ current_borrows }}</b></p>
+  <p>Total books borrowed previously: <b>{{ total_borrows }}</b></p>
+
+  <a href="{% url 'profile_edit' %}" class="btn btn-dark">Edit Profile</a>
+</div>
+
+{% endblock %}

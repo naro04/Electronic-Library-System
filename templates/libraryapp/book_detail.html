@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load library_filters %}
+{% block title %}{{ book.title }}{% endblock %}
+{% block content %}
+
+<div class="row g-4">
+  <div class="col-md-4">
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" class="img-fluid rounded shadow">
+    {% else %}
+      <div style="height:320px;background:#eee;border-radius:12px;"></div>
+    {% endif %}
+  </div>
+
+  <div class="col-md-8">
+    <h2>{{ book.title }}</h2>
+
+    <p>
+      Author:
+      <a href="{% url 'author_detail' book.author.id %}">
+        {{ book.author.display_name }}
+      </a>
+    </p>
+    <p>Category: {{ book.category.label }}</p>
+    <p>Publication year: {{ book.published_year }}</p>
+    <p>Pages: {{ book.pages_total }}</p>
+    <p>Language: {{ book.get_language_display }}</p>
+
+    <p>
+      Available copies:
+      <b>{{ book.available_copies }} out of {{ book.total_copies }}</b>
+    </p>
+
+    <p>
+      Status:
+      {{ book|book_status }}
+    </p>
+
+    <p>
+      Average rating:
+      <b>⭐ {{ book.average_rating }}</b> / 5
+    </p>
+
+    <hr>
+    <p>{{ book.description }}</p>
+    <hr>
+
+    {% if guest %}
+      <a href="{% url 'login' %}" class="btn btn-warning">Login to Borrow</a>
+    {% else %}
+      {% if borrowed_by_me_now %}
+        <div class="alert alert-info">Book Reserved by You</div>
+      {% elif book.is_available %}
+        <a href="{% url 'borrow_book' book.id %}" class="btn btn-success">Borrow Book</a>
+      {% endif %}
+
+      {% if borrowed_before %}
+        <a href="{% url 'add_review' book.id %}" class="btn btn-dark">Add Review</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<hr class="my-4">
+
+<h4>Reviews</h4>
+{% for r in feedbacks %}
+  <div class="card p-3 mb-2">
+    <div class="d-flex gap-2 align-items-center">
+      {% if r.student.student_card.avatar %}
+        <img src="{{ r.student.student_card.avatar.url }}"
+        style="width:45px;height:45px;border-radius:50%;object-fit:cover;">
+      {% else %}
+        <div style="width:45px;height:45px;border-radius:50%;background:#eee;"></div>
+      {% endif %}
+      <div>
+        <b>{{ r.student.first_name|default:r.student.username }}</b><br>
+        <small class="text-muted">{{ r.created_at|date:"Y-m-d" }}</small>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      ⭐ {{ r.stars }} / 5
+      {% if r.comment %}
+        <div>{{ r.comment }}</div>
+      {% endif %}
+    </div>
+  </div>
+{% empty %}
+  <p>No reviews yet.</p>
+{% endfor %}
+
+{% endblock %}
